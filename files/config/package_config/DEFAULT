@@ -1,0 +1,11 @@
+PACKAGES aptitude I386
+linux-image-486
+
+PACKAGES aptitude AMD64
+linux-image-amd64
+
+PACKAGES aptitude DHCPC
+dhcp3-client
+
+PACKAGES aptitude GRUB_PC
+grub-pc grub- lilo-

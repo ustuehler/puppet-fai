@@ -1,0 +1,17 @@
+#! /bin/bash
+
+# (c) Thomas Lange, 2001-2008, lange@debian.org
+
+error=0 ; trap "error=$((error|1))" ERR
+
+echo $TIMEZONE > $target/etc/timezone
+ln -fs /usr/share/zoneinfo/${TIMEZONE} $target/etc/localtime
+
+if [ -n "$IPADDR" ]; then
+    ifclass DHCPC || ainsl -s $FAI_ROOT/etc/hosts "$IPADDR $HOSTNAME.$DOMAIN $HOSTNAME"
+fi
+
+# set root password
+$ROOTCMD usermod -p "$ROOTPW" root
+
+exit $error

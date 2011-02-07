@@ -1,0 +1,10 @@
+#! /bin/bash
+
+# assign classes based on hostname
+case $HOSTNAME in
+    *)
+	echo "FAIBASE DHCPC PUPPET" ;;
+esac
+
+(ifclass I386 || ifclass AMD64) && echo GRUB_PC
+exit 0
