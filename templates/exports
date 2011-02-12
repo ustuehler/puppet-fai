@@ -1,2 +1,2 @@
-/srv/fai/nfsroot 172.16.1.0/24(async,ro,no_subtree_check,no_root_squash)
-/srv/fai/config 172.16.1.0/24(async,ro,no_subtree_check,no_root_squash)
+/srv/fai/nfsroot *(async,ro,no_subtree_check,no_root_squash)
+/srv/fai/config *(async,ro,no_subtree_check,no_root_squash)
