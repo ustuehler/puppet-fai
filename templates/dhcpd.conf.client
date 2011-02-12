@@ -1,0 +1,8 @@
+
+host <%= name %> {
+	hardware ethernet <%= macaddress %>;
+<% if ipaddress -%>
+	fixed-address <%= ipaddress %>;
+<% end -%>
+	option host-name "<%= name %>";
+}

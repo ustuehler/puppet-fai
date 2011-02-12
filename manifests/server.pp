@@ -129,13 +129,19 @@ class fai::server::dhcpd
 		require => Package[isc-dhcp-server]
 	}
 
-	file { "/etc/dhcp/dhcpd.conf":
-		content => template("fai/dhcpd.conf"),
+	$target = "/etc/dhcp/dhcpd.conf"
+
+	concat { $target:
 		owner => root,
 		group => root,
 		mode => 444,
 		notify => Service[isc-dhcp-server],
 		require => Package[isc-dhcp-server]
+	}
+
+	concat::fragment { "dhcpd.conf":
+		target => $target,
+		content => template("fai/dhcpd.conf")
 	}
 }
 
@@ -160,11 +166,6 @@ class fai::server::dnsmasq
 
 	host { "fai-server.virtual.box":
 		ip => '172.16.1.1',
-		notify => Service[dnsmasq]
-	}
-
-	host { "fai-client.virtual.box":
-		ip => '172.16.1.2',
 		notify => Service[dnsmasq]
 	}
 }
