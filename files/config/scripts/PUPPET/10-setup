@@ -1,5 +1,7 @@
 #!/bin/bash
 
 ainsl -v $target/etc/default/puppet 'START=yes'
+
+ainsl -v $target/etc/puppet/puppet.conf 'pluginsync=true'
 ainsl -v $target/etc/puppet/puppet.conf 'report=true'
 ainsl -v $target/etc/puppet/puppet.conf 'server=puppet.us.bsdx.de' # FIXME
