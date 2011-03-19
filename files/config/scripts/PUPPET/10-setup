@@ -5,3 +5,8 @@ ainsl -v $target/etc/default/puppet 'START=yes'
 ainsl -v $target/etc/puppet/puppet.conf 'pluginsync=true'
 ainsl -v $target/etc/puppet/puppet.conf 'report=true'
 ainsl -v $target/etc/puppet/puppet.conf 'server=puppet.us.bsdx.de' # FIXME
+
+# TODO: do a first pre-boot puppet run?  is that possible (with a
+# possibly non-matching kernel and all)?  or run only from rc.local
+# but make sure then that puppetd isn't running in the background
+# before the initial run.
