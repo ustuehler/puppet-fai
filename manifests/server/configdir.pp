@@ -3,8 +3,7 @@ class fai::server::configdir
 {
 	file { "/srv/fai/config":
 		ensure => directory,
-		source => ["puppet:///files/fai/config",
-		           "puppet:///fai/config"],
+		source => "puppet:///fai/config",
 		recurse => true,
 		purge => true,
 		backup => false,
