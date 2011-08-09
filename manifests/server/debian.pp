@@ -1,25 +1,17 @@
 # Install the FAI server on a Debian system.
-class fai::server::debian
+class fai::server::debian($suite, $mirror)
 {
 	case $lsbdistcodename {
 		squeeze: {}
 		default: { fail("$lsbdistcodename is currently unsupported") }
 	}
 
-	$debootstrap_suite = $linux_fai_server_debootstrap_suite ? {
-		'' => "squeeze",
-		default => $linux_fai_server_debootstrap_suite
+	package { fai-server:
+		ensure => present
 	}
-
-	$debootstrap_mirror = $linux_fai_server_debootstrap_mirror ? {
-		'' => "http://ftp.debian.org/debian",
-		default => $linux_fai_server_debootstrap_mirror
-	}
-
-	package { fai-server: }
 
 	# Define additional variables for use in the template.
-	$debootstrap = "$debootstrap_suite $debootstrap_mirror"
+	$debootstrap = "$suite $mirror"
 
 	file { '/etc/fai/make-fai-nfsroot.conf':
 		content => template("fai/make-fai-nfsroot.conf"),

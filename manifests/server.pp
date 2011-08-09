@@ -11,25 +11,27 @@
 #
 # == Parameters
 #
-# - linux_fai_server_debootstrap_suite: The distribution name of the Debian
-#   system (e.g. sarge, etch, lenny, sid). Default: "squeeze"
+# - suite: The distribution name of the Debian system (e.g. sarge, etch,
+#   lenny, sid). Default: "squeeze"
 #
-# - linux_fai_server_debootstrap_mirror: The URL of a Debian mirror to
-#   retrieve packages from.  The URL scheme can be http, file or ssh.
-#   Default: "http://ftp.debian.org/debian"
+# - mirror: The URL of a Debian mirror to retrieve packages from.  The
+#   URL scheme can be http, file or ssh.
 #
-# == Requires
-#
-# - Class[puppet]
-#   - File[$puppet::moduledatadir]
-#
-class fai::server
+class fai::server(
+    $suite = "squeeze",
+    $mirror = "http://ftp.debian.org/debian")
 {
 	case $operatingsystem {
-		Debian: { require fai::server::debian }
+		Debian: { $class = 'fai::server::debian' }
 		default: { fail("$operatingsystem is currently unsupported") }
 	}
 
+	class { $class:
+		suite => $suite,
+		mirror => $mirror
+	}
+
+	require $class
 	require fai::server::interfaces
 	require fai::server::configdir
 	require fai::server::dnsmasq
