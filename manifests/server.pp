@@ -17,18 +17,26 @@
 # - mirror: The URL of a Debian mirror to retrieve packages from.  The
 #   URL scheme can be http, file or ssh.
 #
-class fai::server(
-    $suite = "squeeze",
-    $mirror = "http://ftp.debian.org/debian")
+class fai::server($suite = "squeeze", $mirror =
+    "http://ftp.debian.org/debian", $network, $netmask, $domain,
+    $domain_name_servers, $routers)
 {
 	case $operatingsystem {
 		Debian: { $class = 'fai::server::debian' }
 		default: { fail("$operatingsystem is currently unsupported") }
 	}
 
-	class { $class:
+	class {
+	    $class:
 		suite => $suite,
-		mirror => $mirror
+		mirror => $mirror;
+
+	    'fai::server::dhcpd':
+		network => $network,
+		netmask => $netmask,
+		domain => $domain,
+		domain_name_servers => $domain_name_servers,
+		routers => $routers;
 	}
 
 	require $class

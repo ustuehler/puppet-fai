@@ -1,5 +1,6 @@
 # Configure the ISC DHCP service on an FAI server.
-class fai::server::dhcpd
+class fai::server::dhcpd($network, $netmask, $domain,
+    $domain_name_servers, $routers)
 {
 	require fai::server::dnsmasq
 	require fai::server::interfaces

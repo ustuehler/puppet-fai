@@ -1,9 +1,9 @@
 # Create an FAI client configuration.
-define fai::client($macaddress, $ipaddress = undef)
+define fai::client($macaddress, $ipaddress = undef, $domain = $domain)
 {
 	include fai::server::dhcpd
 
-	host { "$name.virtual.box":
+	host { "$name.$domain":
 		ip => $ipaddress,
 		notify => Service[dnsmasq]
 	}
