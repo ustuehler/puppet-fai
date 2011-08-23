@@ -18,8 +18,7 @@
 #   URL scheme can be http, file or ssh.
 #
 class fai::server($suite = "squeeze", $mirror =
-    "http://ftp.debian.org/debian", $network, $netmask, $domain,
-    $domain_name_servers, $routers)
+    "http://ftp.debian.org/debian")
 {
 	case $operatingsystem {
 		Debian: { $class = 'fai::server::debian' }
@@ -31,19 +30,27 @@ class fai::server($suite = "squeeze", $mirror =
 		suite => $suite,
 		mirror => $mirror;
 
-	    'fai::server::dhcpd':
-		network => $network,
-		netmask => $netmask,
-		domain => $domain,
-		domain_name_servers => $domain_name_servers,
-		routers => $routers;
+# XXX: It's not the responsibility of this class to set up a DHCP server.
+#
+# There might already be another DHCP server running on the network and
+# if one wants to run FAI and DHCP server on the same node, that can be
+# arranged for in a site-specific class.
+#
+# On the other hand, we could provide a wrapper class for convenience?
+#
+#	    'fai::server::dhcpd':
+#		network => $network,
+#		netmask => $netmask,
+#		domain => $domain,
+#		domain_name_servers => $domain_name_servers,
+#		routers => $routers;
 	}
 
 	require $class
 	require fai::server::interfaces
 	require fai::server::configdir
 	require fai::server::dnsmasq
-	require fai::server::dhcpd
+	#require fai::server::dhcpd
 	require fai::server::nfs
 	require fai::server::nat
 }
