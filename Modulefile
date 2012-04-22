@@ -8,8 +8,8 @@ description 'Puppet module to set up a FAI (Fully Automatic
 author 'Uwe Stuehler'
 license 'OpenBSD'
 
-project_page 'https://github.com/ustuehler/ustuehler-fai'
-source 'git://github.com/ustuehler/ustuehler-fai'
+project_page 'https://github.com/ustuehler/puppet-fai'
+source 'https://github.com/ustuehler/puppet-fai.git'
 
 ## Add dependencies, if any:
 # dependency 'username/name', '>= 1.2.0'
